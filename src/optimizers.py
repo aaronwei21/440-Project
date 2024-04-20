@@ -38,8 +38,8 @@ class Adam(torch.optim.Optimizer):
         params = list(params) #generator
         self.params = params
         self.t = 0
-        self.m = t.zeros(size =(len(params),)) #first moment vector
-        self.v = t.zeros(size =(len(params),)) #second moment vector
+        self.m = [t.zeros_like(p) for p in self.params] #first moment vector
+        self.v = [t.zeros_like(p) for p in self.params] #second moment vector
         self.lr = lr
         self.b1 = b1
         self.b2 = b2
