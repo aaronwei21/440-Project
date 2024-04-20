@@ -1,7 +1,7 @@
 import torch as t
 import torch.optim
 import torch.nn as nn
-from optimizers import SGD
+from optimizers import SGD, Adam
 from torchvision import datasets, transforms, models
 from torch.utils.data import DataLoader, Subset
 from tqdm.notebook import tqdm
@@ -48,6 +48,9 @@ class CNN(nn.Module):
 class trainargs():
     batch_size = 64
     learning_rate = 1e-3
+    b1 = 0.9
+    b2 = 0.999
+    ep = 10e-8
     subset = 50
     epochs = 10
 
@@ -109,9 +112,9 @@ def train(args, model, optimizer_type="Adam", dataset="mnist"):
     print(accuracy_list)
 
 
-# writer = SummaryWriter("n/a")
-# args = trainargs()
-# train(args, CNN(), optimizer_type="SGD")
-# writer.close()
+writer = SummaryWriter("n/a")
+args = trainargs()
+train(args, CNN(), optimizer_type='Adam')
+writer.close()
 
 

@@ -1,6 +1,6 @@
 import torch as t 
 import torch.nn as nn
-from optimizers import SGD
+from optimizers import SGD, Adam
 import torch.optim
 from model import MLP
 
@@ -17,8 +17,8 @@ for p in model.parameters():
 
 # opt = t.optim.SGD(model.parameters(), lr=1e-3)
 # opt.step()
-optimizer = SGD(model.parameters(),lr=1e-2)
-for i in range(3):
+optimizer = Adam(model.parameters(), lr=1e-3, b1=0.9, b2=0.999, ep=10e-8)
+for i in range(10):
     f = t.norm((model(xdata)-ydata)**2)
     f.backward()
     optimizer.step()
@@ -30,4 +30,4 @@ for m in model.parameters():
     # print("\n gradient clear?")
     # print(m.grad)
 
-    #try to cross check impe=lementatino by running pytorch version and our version at the same time
+    #try to cross check implementation by running pytorch version and our version at the same time
